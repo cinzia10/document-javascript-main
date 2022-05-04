@@ -1,15 +1,15 @@
 class ToDo {
     static PRIORITY = {
-       0: "nessuna priorità",
-       1: "bassa",
-       2: "media",
-       3: "alta",
+       low: 0,
+       medium: 1,
+       high: 2,
+       veryHigh: 3,
     }
 
-    constructor(title, priority = ToDo.PRIORITY[0], creationDate, tags){
+    constructor(title, priority = ToDo.PRIORITY.low, tags =[]){
         this.title = title;
         this.priority = priority;
-        this.creationDate = new Date ();
+        this._creationDate = new Date().getTime();
         this.tags = tags;
     }
 
@@ -25,8 +25,8 @@ class ToDo {
 ///////////////////////////////////////////////////
 
 class MultipleToDo extends ToDo {
-   constructor(subToDo){
-       super(priority);
+   constructor(title, priority = ToDo.PRIORITY.low, tags =[], subToDo = []){
+       super(title, priority, tags);
        this.subToDo = subToDo;
    }
 
@@ -47,10 +47,13 @@ class DeadLineToDo {
 
 
 
-const toDo1 = new ToDo ('Fare la spesa', ToDo.PRIORITY[3]);
+const toDo1 = new ToDo ('Fare la spesa', ToDo.PRIORITY.high, ['casa']);
 
-const multiToDo = new MultipleToDo (['comprare il pane', ], ToDo.PRIORITY[2])
+const toDo2 = new ToDo ('html', ToDo.PRIORITY.low, ['scuola']);
+const toDo3 = new ToDo ('css', ToDo.PRIORITY.medium, ['scuola']);
+const toDo4 = new ToDo ('javascript', ToDo.PRIORITY.high, ['scuola']);
 
-console.log(toDo1.toString());
+const multi = new MultipleToDo('finire il corso', ToDo.PRIORITY.low, ['scuola'], [toDo2, toDo3, toDo4])
 
-console.log(multiToDo.toString())
+console.log(multi);
+
